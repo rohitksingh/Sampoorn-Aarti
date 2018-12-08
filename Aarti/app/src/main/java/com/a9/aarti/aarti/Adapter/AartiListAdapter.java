@@ -1,7 +1,11 @@
 package com.a9.aarti.aarti.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
+import com.a9.aarti.aarti.Activities.AartiDetailActivity;
+import com.a9.aarti.aarti.Activities.AartiListActvity;
 import com.a9.aarti.aarti.Callbacks.ListItemListener;
 import com.a9.aarti.aarti.Model.Aarti;
 import com.a9.aarti.aarti.R;
@@ -25,13 +31,13 @@ public class AartiListAdapter extends RecyclerView.Adapter<AartiListAdapter.Aart
 
     public List<Aarti> aartiList;
     private Context context;
-    private ListItemListener listItemListener;
+    //private ListItemListener listItemListener;
 
     public AartiListAdapter(Context context, List<Aarti> aartiList)
     {
         this.context = context;
         this.aartiList = aartiList;
-        listItemListener = (ListItemListener)context;
+        //listItemListener = (ListItemListener)context;
     }
 
 
@@ -45,7 +51,7 @@ public class AartiListAdapter extends RecyclerView.Adapter<AartiListAdapter.Aart
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AartiItemViewHolder aartiItemViewHolder, int i) {
+    public void onBindViewHolder(@NonNull final AartiItemViewHolder aartiItemViewHolder, int i) {
 
         final int position = i;
 
@@ -58,7 +64,25 @@ public class AartiListAdapter extends RecyclerView.Adapter<AartiListAdapter.Aart
         aartiItemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listItemListener.itemClicked(position);
+                //listItemListener.itemClicked(position);
+
+
+                Intent startDetailActivity = new Intent(context, AartiDetailActivity.class);
+                startDetailActivity.putExtra("INDEX", position);
+
+
+                //SHARED TRANSITION
+
+                if(Build.VERSION.SDK_INT>20)
+                {
+                    ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation((Activity)context, (View) (aartiItemViewHolder.image), "godImage");
+                        context.startActivity(startDetailActivity, options.toBundle());
+                }
+                else {
+                    context.startActivity(startDetailActivity);
+                }
+
             }
         });
     }
