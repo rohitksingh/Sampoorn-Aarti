@@ -34,7 +34,7 @@ public class AartiDetailActivity extends AppCompatActivity {
 
         loadAarti(index);
 
-        
+
 
     }
 

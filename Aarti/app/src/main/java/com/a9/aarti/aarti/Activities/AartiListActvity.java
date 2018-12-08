@@ -1,11 +1,14 @@
 package com.a9.aarti.aarti.Activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import com.a9.aarti.aarti.Adapter.AartiListAdapter;
 import com.a9.aarti.aarti.Callbacks.ListItemListener;
@@ -17,7 +20,7 @@ import com.a9.aarti.aarti.StaticData.AartiData;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AartiListActvity extends AppCompatActivity implements ListItemListener{
+public class AartiListActvity extends AppCompatActivity {
 
     private RecyclerView aartiListView;
     private List<Aarti> aartiList;
@@ -60,13 +63,5 @@ public class AartiListActvity extends AppCompatActivity implements ListItemListe
         return aartiList;
     }
 
-    @Override
-    public void itemClicked(int index) {
-        //Log.d("Item clicked","item "+i);
 
-        Intent startDetailActivity = new Intent(this, AartiDetailActivity.class);
-        startDetailActivity.putExtra("INDEX", index);
-        startActivity(startDetailActivity);
-
-    }
 }
