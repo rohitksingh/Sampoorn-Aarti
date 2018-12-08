@@ -10,7 +10,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
-        Log.d("Splash","Inside log");
+
         super.onCreate(savedInstanceState);
         Intent intent = new Intent(this, AartiListActvity.class);
         startActivity(intent);
