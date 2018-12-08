@@ -3,14 +3,12 @@ package com.a9.aarti.aarti.Activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.a9.aarti.aarti.Model.Aarti;
 import com.a9.aarti.aarti.R;
 import com.a9.aarti.aarti.StaticData.AartiData;
 
-import java.security.PublicKey;
 
 public class AartiDetailActivity extends AppCompatActivity {
 

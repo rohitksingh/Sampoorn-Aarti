@@ -6,24 +6,19 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
 import com.a9.aarti.aarti.Activities.AartiDetailActivity;
-import com.a9.aarti.aarti.Activities.AartiListActvity;
-import com.a9.aarti.aarti.Callbacks.ListItemListener;
 import com.a9.aarti.aarti.Model.Aarti;
 import com.a9.aarti.aarti.R;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.List;
 
 public class AartiListAdapter extends RecyclerView.Adapter<AartiListAdapter.AartiItemViewHolder> {
@@ -31,13 +26,11 @@ public class AartiListAdapter extends RecyclerView.Adapter<AartiListAdapter.Aart
 
     public List<Aarti> aartiList;
     private Context context;
-    //private ListItemListener listItemListener;
 
     public AartiListAdapter(Context context, List<Aarti> aartiList)
     {
         this.context = context;
         this.aartiList = aartiList;
-        //listItemListener = (ListItemListener)context;
     }
 
 
@@ -60,12 +53,10 @@ public class AartiListAdapter extends RecyclerView.Adapter<AartiListAdapter.Aart
         aartiItemViewHolder.description.setText(aarti.description);
 
         Picasso.get().load(aarti.getImage()).into(aartiItemViewHolder.image);
-       // aartiItemViewHolder.image.setImageResource(aarti.getImage());
+
         aartiItemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //listItemListener.itemClicked(position);
-
 
                 Intent startDetailActivity = new Intent(context, AartiDetailActivity.class);
                 startDetailActivity.putExtra("INDEX", position);
@@ -75,9 +66,23 @@ public class AartiListAdapter extends RecyclerView.Adapter<AartiListAdapter.Aart
 
                 if(Build.VERSION.SDK_INT>20)
                 {
+
+                    //      For single item in Shared transition
                     ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation((Activity)context, (View) (aartiItemViewHolder.image), "godImage");
-                        context.startActivity(startDetailActivity, options.toBundle());
+                           makeSceneTransitionAnimation((Activity)context, (View) (aartiItemViewHolder.image), "godImage");
+                    context.startActivity(startDetailActivity, options.toBundle());
+
+
+                    //     For multiple items make Pair - support.v4 library
+                    /*
+                    Pair<View, String> p1 = Pair.create((View)aartiItemViewHolder.image, "godImage");
+                    Pair<View, String> p2 = Pair.create((View)aartiItemViewHolder.title, "aartiTitle");
+                    ActivityOptionsCompat options = ActivityOptionsCompat.
+                            makeSceneTransitionAnimation((Activity) context, p1, p2);
+                    */
+
+
+
                 }
                 else {
                     context.startActivity(startDetailActivity);
