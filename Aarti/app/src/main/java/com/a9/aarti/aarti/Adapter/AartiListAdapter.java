@@ -1,6 +1,7 @@
 package com.a9.aarti.aarti.Adapter;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -62,31 +63,18 @@ public class AartiListAdapter extends RecyclerView.Adapter<AartiListAdapter.Aart
                 startDetailActivity.putExtra("INDEX", position);
 
 
-                //SHARED TRANSITION
+                //SLIDE Animation
 
                 if(Build.VERSION.SDK_INT>20)
                 {
-
-                    //      For single item in Shared transition
-                    ActivityOptionsCompat options = ActivityOptionsCompat.
-                           makeSceneTransitionAnimation((Activity)context, (View) (aartiItemViewHolder.image), "godImage");
-                    context.startActivity(startDetailActivity, options.toBundle());
-
-
-                    //     For multiple items make Pair - support.v4 library
-                    /*
-                    Pair<View, String> p1 = Pair.create((View)aartiItemViewHolder.image, "godImage");
-                    Pair<View, String> p2 = Pair.create((View)aartiItemViewHolder.title, "aartiTitle");
-                    ActivityOptionsCompat options = ActivityOptionsCompat.
-                            makeSceneTransitionAnimation((Activity) context, p1, p2);
-                    */
-
-
-
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) context);
+                    context.startActivity(startDetailActivity,options.toBundle());
                 }
                 else {
                     context.startActivity(startDetailActivity);
                 }
+
+
 
             }
         });
@@ -111,5 +99,14 @@ public class AartiListAdapter extends RecyclerView.Adapter<AartiListAdapter.Aart
 
         }
     }
+
+
+
+    public void startActivity()
+    {
+
+    }
+
+
 
 }
